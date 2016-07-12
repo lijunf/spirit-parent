@@ -15,6 +15,6 @@
   </properties>
 
   <modules>
-    <module>spirit-util</module>
+    <module>spirit-common</module>
   </modules>
 </project>
