@@ -354,5 +354,6 @@
 	</dependencyManagement>
 	<modules>
 		<module>spirit-common</module>
+		<module>spirit-core</module>
 	</modules>
 </project>
