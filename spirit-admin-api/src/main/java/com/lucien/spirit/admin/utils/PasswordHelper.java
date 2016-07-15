@@ -1,4 +1,4 @@
-package com.lucien.spirit.shiro.authc;
+package com.lucien.spirit.admin.utils;
 
 import java.util.UUID;
 

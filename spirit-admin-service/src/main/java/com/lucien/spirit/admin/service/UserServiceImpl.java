@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lucien.spirit.admin.dao.UserDao;
 import com.lucien.spirit.admin.model.User;
+import com.lucien.spirit.admin.utils.PasswordHelper;
 import com.lucien.spirit.core.jpa.Criteria;
 import com.lucien.spirit.core.jpa.Restrictions;
-import com.lucien.spirit.shiro.authc.PasswordHelper;
 
 @Service
 public class UserServiceImpl implements UserService {

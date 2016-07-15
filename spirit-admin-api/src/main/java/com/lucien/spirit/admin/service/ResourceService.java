@@ -17,4 +17,6 @@ public interface ResourceService {
 	void update(Resource resource);
 
 	Resource findOne(Long id);
+	
+	void refreshResourceCache();
 }

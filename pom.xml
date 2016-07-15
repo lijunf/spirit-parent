@@ -23,7 +23,8 @@
 		<spirit-common-version>${project.version}</spirit-common-version>
 		<spirit-core-version>${project.version}</spirit-core-version>
 		<spirit-admin-api-version>${project.version}</spirit-admin-api-version>
-		
+		<spirit-admin-service-version>${project.version}</spirit-admin-service-version>
+
 		<!-- Common libs -->
 		<spring-version>4.0.5.RELEASE</spring-version>
 		<spring-data-jpa-version>1.6.2.RELEASE</spring-data-jpa-version>
@@ -355,9 +356,9 @@
 				<version>${commons-codec-version}</version>
 			</dependency>
 			<dependency>
-			    <groupId>commons-collections</groupId>
-			    <artifactId>commons-collections</artifactId>
-			    <version>${commons-collections-version}</version>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>${commons-collections-version}</version>
 			</dependency>
 
 			<dependency>
@@ -377,5 +378,6 @@
 		<module>spirit-core</module>
 		<module>spirit-admin-api</module>
 		<module>spirit-admin-service</module>
+		<module>spirit-web-admin</module>
 	</modules>
 </project>

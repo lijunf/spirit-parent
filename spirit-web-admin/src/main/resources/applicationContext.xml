@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/cache  http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+	<!-- 加载src/main/resources下的属性文件 -->
+	<context:property-placeholder location="classpath*:jdbc.properties" />
+
+	<!-- 开启事务注解 -->
+	<tx:annotation-driven />
+
+	<!-- 扫描的包路径 去掉mvc的注解 -->
+	<context:component-scan base-package="com.lucien.spirit">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+
+	<!-- 配置数据源 -->
+    <bean class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" id="dataSource">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="filters" value="stat" />
+		<property name="maxActive" value="20" /> 
+		<property name="initialSize" value="1" />
+		<property name="maxWait" value="60000" />
+		<property name="minIdle" value="1" />
+		<property name="timeBetweenEvictionRunsMillis" value="3000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
+
+	<!-- 指定事务管理器，JPA使用JpaTransactionManager事务管理器实现. -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- 指定JPA实现 -->
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="showSql" value="false" />
+		<property name="database" value="${database}" />
+	</bean>
+
+	<!-- 适用于所有环境的FactoryBean，能全面控制EntityManagerFactory配置,如指定Spring定义的DataSource等等. -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<!-- 指定持久化单元名字，即JPA配置文件中指定的 -->
+		<property name="persistenceUnitName" value="persistenceUnit" />
+		<!-- 见上 -->
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<!-- 见上 -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<jpa:repositories base-package="com.lucien.spirit.**.dao" />
+	
+	
+	<!-- spring 上下文工具类 -->
+	<bean name="webContextUtil" class="com.lucien.spirit.core.util.WebContextUtil" />
+	
+	<cache:annotation-driven/>
+	
+	 <!-- spring对ehcache的缓存工厂支持 -->
+    <bean id="ehCacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:ehcache.xml" />
+        <property name="shared" value="false" />
+    </bean>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehCacheManagerFactory" />
+    </bean>
+	
+	<bean id="cacheLoader" class="com.lucien.spirit.core.cache.CacheLoader"/>
+	<bean id="cacheEvictor" class="com.lucien.spirit.core.cache.CacheEvictor"/>
+	
+</beans>

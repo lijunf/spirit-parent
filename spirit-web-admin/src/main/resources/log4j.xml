@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%t [%d{yyyy/MM/dd HH:mm:ss}] [%c] [%-5p] %m%n" />
+		</layout>
+	</appender>
+	
+
+	<appender name="jdbc" class="org.apache.log4j.jdbc.JDBCAppender">
+		<param name="BufferSize" value="100" />
+		<param name="URL" value="jdbc:mysql://localhost:3306/spirit?useUnicode=true&amp;characterEncoding=utf-8" />
+		<param name="driver" value="com.mysql.jdbc.Driver" />
+		<param name="user" value="root" />
+		<param name="password" value="123456" />
+		<param name="sql" value="INSERT INTO sys_log(LOGINID,IPADDR,PRIORITY,LOGDATE,CLASS,METHOD,MSG) VALUES('%X{userId}','%X{ipAddr}','%p','%d{yyyy-MM-dd HH:mm:ss}','%C','%M','%m')" />
+	</appender>
+	
+	<appender name="EMAIL_QQ" class="org.apache.log4j.net.SMTPAppender">    
+        <param name="Threshold" value="ERROR"/>    
+        <param name="BufferSize" value="128" />    
+        <param name="SMTPHost" value="smtp.qq.com" />    
+        <param name="SMTPUsername" value="cjjvictory" />    
+        <param name="SMTPPassword" value="***" />    
+        <param name="From" value="1298663610@qq.com" />    
+        <param name="To" value="lijunf@163.com" />    
+        <param name="Subject" value="测试邮件发送" />    
+        <param name="LocationInfo" value="true" />    
+        <param name="SMTPDebug" value="true" />    
+        <layout class="org.cjj.log4j.extend.PatternLayout_zh">    
+            <param name="ConversionPattern" value="[%d{ISO8601}] %-5p %c %m%n"/>    
+        </layout>    
+    </appender>  
+
+	<!-- Application Loggers -->
+	<logger name="com.lucien" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+		<appender-ref ref="jdbc" />
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="warn" />
+	</logger>
+
+	<logger name="org.springframework.beans">
+		<level value="warn" />
+	</logger>
+
+	<logger name="org.springframework.context">
+		<level value="warn" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="warn" />
+	</logger>
+
+	<logger name="org.springframework.web.servlet">
+		<level value="info" />
+	</logger>
+	<!-- <logger name="org.springframework.orm.jpa.support"> -->
+	<!-- <level value="debug" /> -->
+	<!-- </logger> -->
+
+	<!-- <logger name="org.hibernate.SQL"> -->
+	<!-- <level value="debug" /> -->
+	<!-- </logger> -->
+
+	<!-- <logger name="org.hibernate.jdbc"> -->
+	<!-- <level value="debug" /> -->
+	<!-- </logger> -->
+
+	<!-- for hibernate3 -->
+	<logger name="org.hibernate.transaction">
+		<level value="warn" />
+	</logger>
+
+	<!-- for hibernate4 -->
+	<logger name="org.hibernate.engine.transaction">
+		<level value="warn" />
+	</logger>
+
+	<logger name="org.hibernate.tool">
+		<level value="warn" />
+	</logger>
+
+	<logger name="jdbc.sqltiming">
+		<level value="warn" />
+	</logger>
+
+	<!-- <logger name="jdbc.sqlonly"> -->
+	<!-- <level value="debug" /> -->
+	<!-- </logger> -->
+
+	<!-- Root Logger -->
+	<root>
+		<priority value="warn" />
+		<appender-ref ref="console" />
+	</root>
+</log4j:configuration>
