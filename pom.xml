@@ -20,13 +20,21 @@
 		</license>
 	</licenses>
 	<properties>
+		<spirit-common-version>${project.version}</spirit-common-version>
+		<spirit-core-version>${project.version}</spirit-core-version>
+		<spirit-admin-api-version>${project.version}</spirit-admin-api-version>
+		
 		<!-- Common libs -->
 		<spring-version>4.0.5.RELEASE</spring-version>
-		<spring-data-jpa-version>1.6.0.RELEASE</spring-data-jpa-version>
-		<hibernate-version>5.1.1.Final</hibernate-version>
+		<spring-data-jpa-version>1.6.2.RELEASE</spring-data-jpa-version>
+		<hibernate-version>4.2.6.Final</hibernate-version>
+		<hibernate-validator-version>5.0.1.Final</hibernate-validator-version>
+		<hibernate-jpa-version>1.0.1.Final</hibernate-jpa-version>
 		<aspectj-version>1.8.0</aspectj-version>
+		<aspectjrt-version>1.8.0</aspectjrt-version>
 		<jsp-api-version>2.2.1-b03</jsp-api-version>
 		<jstl-version>1.2</jstl-version>
+		<tomcat-servlet-api-version>7.0.54</tomcat-servlet-api-version>
 		<druid-version>1.0.5</druid-version>
 		<mysql-version>5.1.29</mysql-version>
 		<shiro-version>1.2.3</shiro-version>
@@ -37,6 +45,7 @@
 		<commons-exec-version>1.2</commons-exec-version>
 		<commons-beanutils-version>1.9.2</commons-beanutils-version>
 		<commons-codec-version>1.9</commons-codec-version>
+		<commons-collections-version>3.2.1</commons-collections-version>
 		<kaptcha-version>0.0.9</kaptcha-version>
 		<fastjson-version>1.1.41</fastjson-version>
 		<cglib-version>3.1</cglib-version>
@@ -155,12 +164,12 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>${hibernate-version}</version>
+				<version>${hibernate-validator-version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate.javax.persistence</groupId>
 				<artifactId>hibernate-jpa-2.0-api</artifactId>
-				<version>${hibernate-version}</version>
+				<version>${hibernate-jpa-version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -178,6 +187,11 @@
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
+				<version>${aspectjrt-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
 				<version>${aspectjrt-version}</version>
 			</dependency>
 
@@ -235,6 +249,12 @@
 				<artifactId>jstl</artifactId>
 				<version>${jstl-version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.tomcat</groupId>
+				<artifactId>tomcat-servlet-api</artifactId>
+				<version>${tomcat-servlet-api-version}</version>
+				<scope>provided</scope>
+			</dependency>
 
 			<!-- Test -->
 			<dependency>
@@ -291,11 +311,6 @@
 				<artifactId>shiro-spring</artifactId>
 				<version>${shiro-version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjweaver</artifactId>
-				<version>aspectjrt-version</version>
-			</dependency>
 
 			<!-- Apache Commons Dependencies -->
 			<dependency>
@@ -339,6 +354,11 @@
 				<artifactId>commons-codec</artifactId>
 				<version>${commons-codec-version}</version>
 			</dependency>
+			<dependency>
+			    <groupId>commons-collections</groupId>
+			    <artifactId>commons-collections</artifactId>
+			    <version>${commons-collections-version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.github.axet</groupId>
@@ -355,5 +375,7 @@
 	<modules>
 		<module>spirit-common</module>
 		<module>spirit-core</module>
+		<module>spirit-admin-api</module>
+		<module>spirit-admin-service</module>
 	</modules>
 </project>
