@@ -59,9 +59,33 @@
 	<!-- 适用于所有环境的FactoryBean，能全面控制EntityManagerFactory配置,如指定Spring定义的DataSource等等. -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<!-- 指定持久化单元名字，即JPA配置文件中指定的 -->
-		<property name="persistenceUnitName" value="persistenceUnit" />
+		<!-- <property name="persistenceXmlLocation" value="classpath:persistence.xml" /> -->
+		<property name="packagesToScan" value="com.lucien.spirit.*" />
 		<!-- 见上 -->
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="jpaProperties">
+            <props>
+                <prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.connection.charSet">UTF-8</prop>
+	
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+	
+				<!-- Enable Batching -->
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="hibernate.default_batch_fetch_size">10</prop>
+	
+				<!-- Hibernate二级缓存相关配置 -->
+				<!-- 开启二级缓存 -->
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<!-- 打开Hibernate查询缓存 -->
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<!-- 配置缓存提供者 -->
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+            </props>
+        </property>
 		<!-- 见上 -->
 		<property name="dataSource" ref="dataSource" />
 	</bean>
@@ -70,7 +94,7 @@
 	
 	
 	<!-- spring 上下文工具类 -->
-	<bean name="webContextUtil" class="com.lucien.spirit.core.util.WebContextUtil" />
+	<bean name="webContextUtil" class="com.lucien.spirit.common.utils.WebContextUtil" />
 	
 	<cache:annotation-driven/>
 	
@@ -83,7 +107,7 @@
         <property name="cacheManager" ref="ehCacheManagerFactory" />
     </bean>
 	
-	<bean id="cacheLoader" class="com.lucien.spirit.core.cache.CacheLoader"/>
-	<bean id="cacheEvictor" class="com.lucien.spirit.core.cache.CacheEvictor"/>
+	<bean id="cacheLoader" class="com.lucien.spirit.cache.CacheLoader"/>
+	<bean id="cacheEvictor" class="com.lucien.spirit.cache.CacheEvictor"/>
 	
 </beans>

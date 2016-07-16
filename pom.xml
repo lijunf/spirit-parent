@@ -26,7 +26,7 @@
 		<spirit-admin-service-version>${project.version}</spirit-admin-service-version>
 
 		<!-- Common libs -->
-		<spring-version>4.0.5.RELEASE</spring-version>
+		<spring-version>4.0.4.RELEASE</spring-version>
 		<spring-data-jpa-version>1.6.2.RELEASE</spring-data-jpa-version>
 		<hibernate-version>4.2.6.Final</hibernate-version>
 		<hibernate-validator-version>5.0.1.Final</hibernate-validator-version>
@@ -51,6 +51,7 @@
 		<fastjson-version>1.1.41</fastjson-version>
 		<cglib-version>3.1</cglib-version>
 		<dom4j-version>1.6.1</dom4j-version>
+		<ehcache-version>2.4.8</ehcache-version>
 
 		<!-- Log libs -->
 		<slf4j-version>1.7.7</slf4j-version>
@@ -370,6 +371,12 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>${fastjson-version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>net.sf.ehcache</groupId>
+				<artifactId>ehcache-core</artifactId>
+				<version>${ehcache-version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

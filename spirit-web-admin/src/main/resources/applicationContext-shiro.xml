@@ -11,7 +11,7 @@
     </bean>
 
 	<!-- 凭证匹配器 -->
-	<bean id="credentialsMatcher" class="com.lucien.spirit.core.shiro.authc.credential.CustomCredentialsMatcher">
+	<bean id="credentialsMatcher" class="com.lucien.spirit.shiro.authc.credential.CustomCredentialsMatcher">
 		<!-- 散列算法的名字 -->
 		<property name="hashAlgorithmName" value="SHA-512" />
 		<property name="hashIterations" value="99" />
@@ -20,7 +20,7 @@
 	</bean>
 
 	<!-- Realm实现 -->
-	<bean id="jpaRealm" class="com.lucien.spirit.core.shiro.realm.JpaRealm">
+	<bean id="jpaRealm" class="com.lucien.spirit.shiro.realm.JpaRealm">
 		<property name="cachingEnabled" value="true" />
 		<property name="authenticationCachingEnabled" value="true" />
 		<property name="authenticationCacheName" value="authenticationCache" />
@@ -114,7 +114,7 @@
 	
 	<!-- shiro自定义的动态获取资源类 -->
 	<bean id="chainDefinitionSectionMetaSource" 
-		class="com.lucien.spirit.core.shiro.spring.ChainDefinitionSectionMetaSource">
+		class="com.lucien.spirit.shiro.spring.ChainDefinitionSectionMetaSource">
 		<property name="filterChainDefinitions">  
 	        <value>  
 	            /login = anon  
